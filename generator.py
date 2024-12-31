@@ -10,7 +10,7 @@ def generate_effect(guaranteed=None):
     )) if guaranteed is None else guaranteed
     effects.append(e)
 
-    if e == 'attack':=
+    if e == 'attack':
         effects.append(wchoice((
             (2, 35),
             (3, 25),  # 60
