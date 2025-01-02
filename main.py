@@ -1,4 +1,4 @@
 from generator import *
 
-for _ in range(10):
-    print(generate_effect('attack'))
+for i in range(20):
+    print(f"Generated card attributes with rarity {i}: {generate_attribute(i)}")

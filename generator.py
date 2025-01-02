@@ -1,41 +1,22 @@
-def generate_effect(guaranteed=None):
-    effects = []
+from random import choices, randint
 
-    e = wchoice((
-        ('attack', 40),
-        ('shield', 30),  # 70
-        ('effect', 15),  # 85
-        ('draw', 12),  # 97
-        ('heal', 3),  # 100
-    )) if guaranteed is None else guaranteed
-    effects.append(e)
+attributes = {
+    "attack": {
+        "weight": 1
+    },
 
-    if e == 'attack':
-        effects.append(wchoice((
-            (2, 35),
-            (3, 25),  # 60
-            (4, 20),  # 80
-            (5, 15),  # 95
-            (6, 5)    # 5
-        )))
-
-    elif e == 'shield':
-        effects.append(wchoice((
-            (4, 35),
-            (5, 25),  # 60
-            (6, 20),  # 80
-            (7, 15),  # 95
-            (8, 5)    # 5
-        )))
-
-    return effects
+    "shield": {
+        "weight": 1
+    }
+}
 
 
-# noinspection SpellCheckingInspection
-def wchoice(item_weights):
-    from random import choices
-    items, weights = zip(*item_weights)
-    return choices(items, weights=weights)[0]
+def generate_attribute(rarity=0):
+    item_keys = list(attributes.keys())
+    item_weights = [attributes[key]["weight"] for key in item_keys]
 
+    selected_attribute = choices(item_keys, weights=item_weights, k=1)[0]
 
-__all__ = ["generate_effect"]
+    power = max(1, 1 + rarity * randint(85, 115) // 100)
+
+    return selected_attribute, power
